@@ -31,7 +31,7 @@ index 6a70f0e..f95f5f4 100644
  FILE	*auth_openkeyfile(const char *, struct passwd *, int);
  
 diff --git a/auth2-pubkey.c b/auth2-pubkey.c
-index b1e38e5..d18036a 100644
+index b1e38e5..173b664 100644
 --- a/auth2-pubkey.c
 +++ b/auth2-pubkey.c
 @@ -251,6 +251,97 @@ user_key_allowed2(struct passwd *pw, Key *key, char *file)
@@ -86,7 +86,7 @@ index b1e38e5..d18036a 100644
 +		dup2(pipe_out[1], 1);
 +		close(pipe_out[1]);
 +
-+		execl(file, file, NULL);
++		execl(file, file, pw->pw_name, NULL);
 +
 +		/* exec failed */
 +		error("execl(): %s", strerror(errno));

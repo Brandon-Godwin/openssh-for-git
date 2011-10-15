@@ -22,6 +22,8 @@ The script must follow certain guidelines in order for this to work properly.
 
 Your program will receive the public key on STDIN, and is terminated by EOF. It will be in canoncial SSH public key format, starting with @ssh-dss@ or @ssh-rsa@, a space, and then the key data. The user@hostname identifier is not included.
 
+Your program will also receive, as a command line argument, the username of the user that is currently logging in.
+
 Your program's exit code is the most important output from your script. *An exit code of 0 means success, while 1 means failure.* Success allows the user to login with that key. It is thus <ins>*VERY important*</ins> that your script does not blindly exit with a code of 0, or the user will be able to login as the user.
 
 Your script has the option of outputting ssh options in the same format as @authorized_keys@. These options are printed to standard out. You must print only the options without any whitespace or newlines at the end (i.e., in Ruby, use @print@ not @puts@). A valid option string might be @command="gitosis-serve jd",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty@. Outputting invalid options (or a newline) will result in the user's key being rejected, regardless of your exit code. Additionally, your scripts output will be entirely ignored if the exit code is not 0.
